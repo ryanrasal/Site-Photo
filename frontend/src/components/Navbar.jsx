@@ -22,11 +22,11 @@ function Nav() {
         </button>
         <div>
           <ul
-            className={`md:flex  md:items-center md:pb-0 pb-12 absolute md:static md:z-auto z-1 left-0  w-full md:w-auto md:mt-[-100px] md:pl-0 pl-9 transition-all duration-300 ease-in ${
+            className={`md:flex  md:items-center md:pb-0 pb-12 font-['body'] absolute md:static md:z-auto z-1 left-0  w-full md:w-auto md:mt-[-100px] md:pl-0 pl-9 transition-all duration-300 ease-in ${
               open ? " bg-[#A8998F] md:bg-black " : "top-[-490px]"
             }`}
           >
-            <li className=" md:ml-8 text-xl md:my-0 my-7 font-['Cormorant Garamond']">
+            <li className=" md:ml-8 text-xl md:my-0 my-7">
               <Link
                 to="/"
                 className="md:text-white hover:text-gray-300 duration-300 text-4xl"
@@ -34,7 +34,7 @@ function Nav() {
                 Accueil
               </Link>
             </li>
-            <li className="md:ml-8 text-xl md:my-0 my-7 font-['Cormorant Garamond']">
+            <li className="md:ml-8 text-xl md:my-0 my-7">
               <Link
                 to="/galerie"
                 className="md:text-white hover:text-gray-300 duration-300 text-4xl"
@@ -42,10 +42,10 @@ function Nav() {
                 Galerie
               </Link>
             </li>
-            <li className="hidden md:block md:ml-8 text-xl md:my-0 my-7 font-['Cormorant Garamond']">
+            <li className="hidden md:block md:ml-8 text-xl md:my-0 my-7">
               <img className="w-96 h-96" src={logoNav} alt="" />
             </li>
-            <li className="md:ml-8 text-xl md:my-0 my-7 font-['Cormorant Garamond']">
+            <li className="md:ml-8 text-xl md:my-0 my-7">
               <Link
                 to="/contact"
                 className="md:text-white hover:text-gray-300 duration-300 text-4xl"

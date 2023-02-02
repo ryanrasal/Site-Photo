@@ -30,7 +30,10 @@ function Photo({ photo }) {
   };
   return (
     <div>
-      <ul key={photo.id} className="md:flex py-3 justify-between shadow-sm">
+      <ul
+        key={photo.id}
+        className="md:flex text-lg py-3 justify-between shadow-sm"
+      >
         <li className="list-none text-center bg-slate-300 text-black border w-60 mx-auto md:mx-5 p-3 rounded-lg md:mt-[17px] md:mb-[20px] ">
           {photo.nom}
         </li>
