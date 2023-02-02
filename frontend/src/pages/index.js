@@ -1,0 +1,10 @@
+export { default as Home } from "./Public/Home";
+export { default as Galerie } from "./Public/Galerie";
+export { default as Photos } from "./Public/Photos";
+export { default as SousAlbum } from "./Public/SousAlbum";
+export { default as Contact } from "./Public/Contact";
+export { default as Connexion } from "./Public/Connexion";
+export { default as AdminSousAlbum } from "./Admin/AdminSousAlbum";
+export { default as AdminPhoto } from "./Admin/AdminPhoto";
+export { default as AdminAlbum } from "./Admin/AdminAlbum";
+export { default as Layout } from "./Public/Layout";
