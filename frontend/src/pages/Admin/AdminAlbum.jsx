@@ -55,7 +55,7 @@ function AdminAlbum() {
 
   // Fin barre de recherche
   return (
-    <div className="bg-white h-screen">
+    <div className="bg-white h-screen font-['body'] ">
       <NavigationAdmin />
       <div className=" flex flex-wrap">
         <table className="w-full text-left">
