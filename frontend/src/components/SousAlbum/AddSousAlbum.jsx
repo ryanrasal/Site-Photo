@@ -63,6 +63,13 @@ function AddSousAlbum() {
       fetch(`http://localhost:5000/api/sousAlbum`, requestOptions)
         .then((response) => response.text())
         .then(() => {
+          toast.success("Album Créé", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
           navigate("/admin/sousalbum");
         })
         .catch(console.error);

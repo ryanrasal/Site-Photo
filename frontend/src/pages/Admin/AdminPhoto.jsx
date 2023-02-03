@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useCurrentSearchContext } from "../../context/SearchContext";
 import NavigationAdmin from "../../components/NavigationAdmin";
 import error from "../../assets/error.png";
 import Photo from "../../components/Photo/Photo";
@@ -8,6 +9,9 @@ import Photo from "../../components/Photo/Photo";
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function AdminPhoto() {
+  // Appel le context pour changer la valeur de la recherche
+  const { filterSearch, handleSearch } = useCurrentSearchContext();
+
   // Route qui récupère les sous Album
   const [sousAlbums, setSousAlbums] = useState([]);
   useEffect(() => {
@@ -34,14 +38,6 @@ function AdminPhoto() {
 
   const [selectedSousAlbumId, setSelectedSousAlbumId] = useState("0");
 
-  // fonction et state pour filter avec la barre de recherche
-  const [filterSearch, setFilterSearch] = useState("");
-
-  function handleSearch(e) {
-    const { value } = e.target;
-    setFilterSearch(value);
-  }
-
   const filterItems = photos
     .filter(
       (photo) =>
@@ -51,8 +47,6 @@ function AdminPhoto() {
     .filter((photo) => {
       return photo.nom.toLowerCase().includes(filterSearch.toLowerCase());
     });
-
-  // Fin barre de recherche
 
   return (
     <div className="bg-white h-screen font-['body']">
@@ -108,7 +102,7 @@ function AdminPhoto() {
                 />
               ) : (
                 filterItems.map((photo) => (
-                  <div>
+                  <div key={photo.id}>
                     <Photo photo={photo} setRefresh={setRefresh} />
                   </div>
                 ))

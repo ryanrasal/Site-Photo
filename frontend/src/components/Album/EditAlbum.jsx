@@ -1,21 +1,10 @@
-/* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import croix from "../../assets/croix.png";
 
 function EditAlbum() {
-  const [albums, setAlbums] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/api/album")
-      .then((response) => response.json())
-      .then((result) => {
-        setAlbums(result);
-      });
-  }, []);
-
   const [dataAlbum, setDataAlbum] = useState({
     nom: "",
     description: "",
@@ -48,7 +37,7 @@ function EditAlbum() {
       fetch(`http://localhost:5000/api/album/${albumId}`, requestOptions)
         .then((response) => response.text())
         .then(() => {
-          toast.success("Album modifié", {
+          toast.success(`Album ${dataAlbum.nom} modifié `, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -81,7 +70,7 @@ function EditAlbum() {
               className="w-80 rounded-md border border-primary py-2 pl-4 text-lg placeholder-black"
               type="text"
               name="nom"
-              placeholder={albums.nom}
+              placeholder="Nom de l'album"
               value={dataAlbum.nom}
               onChange={onChange}
             />
@@ -91,7 +80,7 @@ function EditAlbum() {
             <input
               className="w-80 rounded-md border border-primary py-2 pl-4 text-lg placeholder-black"
               type="text"
-              placeholder={albums.description}
+              placeholder="description"
               name="description"
               value={dataAlbum.description}
               onChange={onChange}

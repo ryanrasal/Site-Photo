@@ -8,13 +8,13 @@ import Loader from "../../Loader/Loader";
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function Galerie() {
-  // Appel le context pour changer la valeur de la recherche
+  // Appel le context pour récuperer la valeur de la recherche
   const { filterSearch, handleSearch } = useCurrentSearchContext();
 
-  // loader pour le chargement de la page si trop de données à chargers
+  // loader pour le chargement de la page
   const [loader, setLoader] = useState(true);
 
-  // Récupère les données des albums avec un fetch vers le back et les postes dans galerie
+  // Récupère les  albums
   const [albums, setAlbums] = useState([]);
   useEffect(() => {
     fetch(`${VITE_BACKEND_URL}/api/album`)
@@ -46,7 +46,7 @@ function Galerie() {
           className="rounded-full border border-blue-500 pl-4 py-3"
         />
       </div>
-      <div className="flex flex-col md:grid md:grid-cols-3 gap-10 md:ml-14">
+      <div className="flex flex-col md:grid md:grid-cols-3 gap-10 pb-5 md:pb-0 md:ml-14">
         {filterItems.length === 0 ? (
           <img
             className=" h-[300px] w-[400px] object-fit md:ml-[108%] mb-[262px] md:mb-[74px]"
