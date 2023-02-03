@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import error from "../../assets/error.png";
+import Loader from "../../Loader/Loader";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
-// const { VITE_BACKEND_URL } = import.meta.env;
-
 function Galerie() {
+  // loader pour le chargement de la page si trop de données à chargers
+  const [loader, setLoader] = useState(true);
+
   // Récupère les données des albums avec un fetch vers le back et les postes dans galerie
   const [albums, setAlbums] = useState([]);
   useEffect(() => {
@@ -16,22 +18,9 @@ function Galerie() {
       .then((response) => response.json())
       .then((result) => {
         setAlbums(result);
+        setLoader(false);
       });
   }, []);
-
-  const [loader, setLoader] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoader(false);
-    }, 1000);
-  }, []);
-
-  const [dataAlbum, setDataAlbum] = useState("");
-
-  // State pour les modales sur un hover de photo
-  const [modal, setModal] = useState(false);
-  // Fin hover de photo
 
   // fonction et state pour filter avec la barre de recherche
   const [filterSearch, setFilterSearch] = useState("");
@@ -47,7 +36,9 @@ function Galerie() {
 
   // Fin barre de recherche
 
-  return (
+  return loader ? (
+    <Loader />
+  ) : (
     <div className="bg-black px-10 ">
       <Navbar />
       <h2 className="pt-20 text-white text-4xl font-['body'] text-center md:mt-[-50px] pb-10 md:pt-0">
@@ -74,19 +65,13 @@ function Galerie() {
               <p className=" flex justify-center md:pb-4 text-white text-3xl font-['body']">
                 {album.nom}
               </p>
-              <button
-                type="button"
-                className="md:mb-[74px]"
-                onClick={() => setDataAlbum(album)}
-              >
-                <Link to={`/galerie/sousAlbum/${album.id}`}>
-                  <img
-                    className=" h-[250px] md:h-[300px] w-[400px]   "
-                    src={`${VITE_BACKEND_URL}/uploads/${album.image}`}
-                    alt=""
-                  />
-                </Link>
-              </button>
+              <Link to={`/galerie/sousAlbum/${album.id}`}>
+                <img
+                  className=" h-[250px] md:h-[300px] w-[400px]   "
+                  src={`${VITE_BACKEND_URL}/uploads/${album.image}`}
+                  alt=""
+                />
+              </Link>
             </div>
           ))
         )}
