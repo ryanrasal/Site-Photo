@@ -7,6 +7,9 @@ import NavigationAdmin from "../../components/NavigationAdmin";
 import error from "../../assets/error.png";
 
 function AdminAlbum() {
+  // refresh de la page au moment du delete
+  const [refresh, setRefresh] = useState(false);
+
   // Route qui récupère les albums
   const [albums, setAlbums] = useState([]);
 
@@ -16,15 +19,16 @@ function AdminAlbum() {
       .then((result) => {
         setAlbums(result);
       });
-  }, []);
+  }, [refresh]);
 
   const navigate = useNavigate();
+
   // Route qui delete un album
   const handleDelete = (id) => {
     axios
       .delete(`http://localhost:5000/api/album/${id}`)
-      .then((response) => {
-        response.data();
+      .then(() => {
+        navigate("/admin/album");
         toast.success("Album Supprimé", {
           position: "top-right",
           autoClose: 5000,
@@ -32,7 +36,7 @@ function AdminAlbum() {
           closeOnClick: true,
           pauseOnHover: true,
         });
-        navigate("/admin/album");
+        setRefresh(true);
       })
       .catch((err) => {
         console.error(err);
