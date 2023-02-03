@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useCurrentSearchContext } from "../../context/SearchContext";
 import Navbar from "../../components/Navbar";
 import error from "../../assets/error.png";
 import Loader from "../../Loader/Loader";
@@ -8,10 +8,13 @@ import Loader from "../../Loader/Loader";
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function Galerie() {
-  // loader pour le chargement de la page si trop de données à chargers
+  // Appel le context pour récuperer la valeur de la recherche
+  const { filterSearch, handleSearch } = useCurrentSearchContext();
+
+  // loader pour le chargement de la page
   const [loader, setLoader] = useState(true);
 
-  // Récupère les données des albums avec un fetch vers le back et les postes dans galerie
+  // Récupère les  albums
   const [albums, setAlbums] = useState([]);
   useEffect(() => {
     fetch(`${VITE_BACKEND_URL}/api/album`)
@@ -22,19 +25,10 @@ function Galerie() {
       });
   }, []);
 
-  // fonction et state pour filter avec la barre de recherche
-  const [filterSearch, setFilterSearch] = useState("");
-
-  function handleSearch(e) {
-    const { value } = e.target;
-    setFilterSearch(value);
-  }
-
+  // const qui filtre les albums selon la recherche
   const filterItems = albums.filter((album) => {
     return album.nom.toLowerCase().includes(filterSearch.toLowerCase());
   });
-
-  // Fin barre de recherche
 
   return loader ? (
     <Loader />
@@ -52,7 +46,7 @@ function Galerie() {
           className="rounded-full border border-blue-500 pl-4 py-3"
         />
       </div>
-      <div className="flex flex-col md:grid md:grid-cols-3 gap-10 md:ml-14">
+      <div className="flex flex-col md:grid md:grid-cols-3 gap-10 pb-5 md:pb-0 md:ml-14">
         {filterItems.length === 0 ? (
           <img
             className=" h-[300px] w-[400px] object-fit md:ml-[108%] mb-[262px] md:mb-[74px]"

@@ -64,6 +64,13 @@ function AddPhoto() {
       fetch(`http://localhost:5000/api/photo`, requestOptions)
         .then((response) => response.text())
         .then(() => {
+          toast.success(`Photo ${dataPhoto.nom} créée`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
           navigate("/admin/photo");
         })
         .catch(console.error);

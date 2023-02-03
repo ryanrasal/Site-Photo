@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useCurrentSearchContext } from "../../context/SearchContext";
 import Navbar from "../../components/Navbar";
 import error from "../../assets/error.png";
 import Loader from "../../Loader/Loader";
@@ -8,13 +9,16 @@ import Loader from "../../Loader/Loader";
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function SousAlbum() {
-  // loader pour le chargement de la page si trop de données à chargers
+  // Appel le context pour récuperer la valeur de la recherche
+  const { filterSearch, handleSearch } = useCurrentSearchContext();
+
+  // loader pour le chargement de la page
   const [loader, setLoader] = useState(true);
 
   // Récupère l'id de l'album sélectionné dans l'url
   const { albumId } = useParams();
 
-  // Récupère tous les sousAlbum qui en relation avec l'id de l'url
+  // Récupère tous les sousAlbum
   const [sousAlbums, setSousAlbums] = useState([]);
 
   useEffect(() => {
@@ -26,18 +30,10 @@ function SousAlbum() {
       });
   }, []);
 
-  // fonction et state pour filter avec la barre de recherche
-  const [filterSearch, setFilterSearch] = useState("");
-
-  function handleSearch(e) {
-    const { value } = e.target;
-    setFilterSearch(value);
-  }
-
+  // const qui filtre les sous albums selon la recherche
   const filterItems = sousAlbums.filter((sousalbum) => {
     return sousalbum.nom.toLowerCase().includes(filterSearch.toLowerCase());
   });
-  // Fin barre de recherche
 
   return loader ? (
     <Loader />
@@ -75,7 +71,7 @@ function SousAlbum() {
                   </h3>
                 </div>
                 <img
-                  className=" pt-5 object-contain mx-auto md:mb-[74px]"
+                  className=" pt-5  h-[300px] object-contain mx-auto md:mb-[74px]"
                   src={`${VITE_BACKEND_URL}/uploads/${sousalbum.image}`}
                   alt=""
                 />

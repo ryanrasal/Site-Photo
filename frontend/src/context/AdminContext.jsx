@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 import { createContext, useContext } from "react";
 import PropTypes from "prop-types";
 import useLocalStorage from "../useLocalStorage";
@@ -13,7 +14,6 @@ export function CurrentAdminContextProvider({ children }) {
 
   return (
     <CurrentAdminContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         token,
         setToken,

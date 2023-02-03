@@ -45,7 +45,7 @@ function AddAlbum() {
       fetch(`http://localhost:5000/api/album`, requestOptions)
         .then((response) => response.text())
         .then(() => {
-          toast.success("Album Créé", {
+          toast.success(`Album ${dataAlbum.nom} Créé`, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,

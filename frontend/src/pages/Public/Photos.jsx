@@ -8,9 +8,12 @@ import flecheGauche from "../../assets/flecheGauche.png";
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function Photos() {
-  const { sousalbumId } = useParams();
   const [loader, setLoader] = useState(true);
 
+  // Récupère l'id de l'album sélectionné dans l'url
+  const { sousalbumId } = useParams();
+
+  // Récupère les photos
   const [photos, setPhotos] = useState([]);
   useEffect(() => {
     fetch(`${VITE_BACKEND_URL}/api/photo/${sousalbumId}`)
