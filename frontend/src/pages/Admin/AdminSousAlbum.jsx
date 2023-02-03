@@ -7,6 +7,9 @@ import NavigationAdmin from "../../components/NavigationAdmin";
 import error from "../../assets/error.png";
 
 function AdminAlbum() {
+  // refresh de la page au moment du delete
+  const [refresh, setRefresh] = useState(false);
+
   const [sousAlbums, setSousAlbums] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/api/sousAlbum")
@@ -14,7 +17,7 @@ function AdminAlbum() {
       .then((result) => {
         setSousAlbums(result);
       });
-  }, []);
+  }, [refresh]);
 
   const navigate = useNavigate();
   // Route qui delete un album
@@ -22,6 +25,7 @@ function AdminAlbum() {
     axios
       .delete(`http://localhost:5000/api/sousAlbum/${id}`)
       .then(() => {
+        navigate("/admin/sousAlbum");
         toast.success("Sous Album Supprimé", {
           position: "top-right",
           autoClose: 5000,
@@ -29,7 +33,7 @@ function AdminAlbum() {
           closeOnClick: true,
           pauseOnHover: true,
         });
-        navigate("/admin/sousAlbum");
+        setRefresh(true);
       })
       .catch((err) => {
         console.error(err);
