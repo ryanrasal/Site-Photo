@@ -3,19 +3,26 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import error from "../../assets/error.png";
+import Loader from "../../Loader/Loader";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
 function SousAlbum() {
-  const [sousAlbums, setSousAlbums] = useState([]);
+  // loader pour le chargement de la page si trop de données à chargers
+  const [loader, setLoader] = useState(true);
 
+  // Récupère l'id de l'album sélectionné dans l'url
   const { albumId } = useParams();
+
+  // Récupère tous les sousAlbum qui en relation avec l'id de l'url
+  const [sousAlbums, setSousAlbums] = useState([]);
 
   useEffect(() => {
     fetch(`${VITE_BACKEND_URL}/api/sousAlbum/${albumId}`)
       .then((response) => response.json())
       .then((result) => {
         setSousAlbums(result);
+        setLoader(false);
       });
   }, []);
 
@@ -32,7 +39,9 @@ function SousAlbum() {
   });
   // Fin barre de recherche
 
-  return (
+  return loader ? (
+    <Loader />
+  ) : (
     <div className="bg-black ">
       <Navbar />
       <h2 className="pt-20 text-white text-4xl font-['body'] text-center md:mt-[-50px] pb-10 md:pt-0">
