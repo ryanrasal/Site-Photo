@@ -18,6 +18,9 @@ function AdminPhoto() {
       });
   }, []);
 
+  // refresh de la page au moment du delete
+  const [refresh, setRefresh] = useState(false);
+
   // Route qui récupère les photos
   const [photos, setPhotos] = useState([]);
 
@@ -27,7 +30,7 @@ function AdminPhoto() {
       .then((result) => {
         setPhotos(result);
       });
-  }, []);
+  }, [refresh]);
 
   const [selectedSousAlbumId, setSelectedSousAlbumId] = useState("0");
 
@@ -52,7 +55,7 @@ function AdminPhoto() {
   // Fin barre de recherche
 
   return (
-    <div className="bg-white h-screen">
+    <div className="bg-white h-screen font-['body']">
       <NavigationAdmin />
       <div className=" flex flex-wrap">
         <table className="w-full text-left">
@@ -106,7 +109,7 @@ function AdminPhoto() {
               ) : (
                 filterItems.map((photo) => (
                   <div>
-                    <Photo photo={photo} />
+                    <Photo photo={photo} setRefresh={setRefresh} />
                   </div>
                 ))
               )}

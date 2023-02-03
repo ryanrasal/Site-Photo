@@ -6,13 +6,12 @@ import axios from "axios";
 
 const { VITE_BACKEND_URL } = import.meta.env;
 
-function Photo({ photo }) {
+function Photo({ photo, setRefresh }) {
   // Route qui delete une photo
   const handleDelete = (id) => {
     axios
       .delete(`http://localhost:5000/api/photo/${id}`)
-      .then((response) => {
-        response.data();
+      .then(() => {
         toast.success("Photo Supprimé", {
           position: "top-right",
           autoClose: 5000,
@@ -20,6 +19,7 @@ function Photo({ photo }) {
           closeOnClick: true,
           pauseOnHover: true,
         });
+        setRefresh(true);
       })
       .catch((err) => {
         console.error(err);
@@ -30,7 +30,10 @@ function Photo({ photo }) {
   };
   return (
     <div>
-      <ul key={photo.id} className="md:flex py-3 justify-between shadow-sm">
+      <ul
+        key={photo.id}
+        className="md:flex text-lg py-3 justify-between shadow-sm"
+      >
         <li className="list-none text-center bg-slate-300 text-black border w-60 mx-auto md:mx-5 p-3 rounded-lg md:mt-[17px] md:mb-[20px] ">
           {photo.nom}
         </li>

@@ -60,8 +60,10 @@ function SousAlbum() {
               key={sousalbum.id}
             >
               <div className=" h-[400px] w-[350px] bg-[#FFDCBA] mx-auto rounded-lg">
-                <div className="flex justify-center">
-                  <h3 className="text-2xl pb-5 pt-2">{sousalbum.nom}</h3>
+                <div className="flex justify-center shadow-md">
+                  <h3 className="font-['body'] text-2xl pb-5 pt-2">
+                    {sousalbum.nom}
+                  </h3>
                 </div>
                 <img
                   className=" pt-5 object-contain mx-auto md:mb-[74px]"
